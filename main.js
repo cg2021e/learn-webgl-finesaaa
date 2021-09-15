@@ -7,16 +7,15 @@ function main() {
    * A (-0.5, -0.5)
    * B (0.5, -0.5)
    * C (0.0, 0.5)
+   * D (-0.5, 0.5)
    */
 
   var vertices = [
     -0.5, -0.5, 0.0, 1.0, 0.0,     // Point A
      0.5, -0.5, 0.0, 0.0, 1.0,     // Point B
-     0.5, -0.5, 0.0, 0.0, 1.0,     // Point C
-     0.0,  0.5, 1.0, 0.0, 0.0,     // Point D
-     0.0,  0.5, 1.0, 0.0, 0.0,     // Point E
-    -0.5, -0.5, 0.0, 1.0, 0.0      // Point F
-  ];
+     0.5,  0.5, 1.0, 0.0, 0.0,     // Point C
+    -0.5,  0.5, 1.0, 0.0, 0.0      // Point D
+];
 
 
   // Create a lnekkd-list for storing the vertices data
@@ -90,7 +89,7 @@ function main() {
   gl.clear(gl.COLOR_BUFFER_BIT);
 
   // Tell that we've three vertices
-  gl.drawArrays(gl.LINES, 0, 6);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 }
 
 window.onload = main;
