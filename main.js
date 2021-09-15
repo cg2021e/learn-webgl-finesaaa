@@ -11,8 +11,8 @@ function main() {
    */
 
   var vertices = [
-    -0.5, -0.5, 0.0, 1.0, 0.0,     // Point A
-     0.5, -0.5, 0.0, 0.0, 1.0,     // Point B
+    0.5, -0.5, 0.0, 1.0, 0.0,     // Point A
+     -0.5, -0.5, 0.0, 1.0, 0.0,     // Point B
      0.5,  0.5, 1.0, 0.0, 0.0,     // Point C
     -0.5,  0.5, 1.0, 0.0, 0.0      // Point D
 ];
@@ -89,7 +89,7 @@ function main() {
   gl.clear(gl.COLOR_BUFFER_BIT);
 
   // Tell that we've three vertices
-  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  gl.drawArrays(gl.TRIANGLE, 0, 4);
 }
 
 window.onload = main;
