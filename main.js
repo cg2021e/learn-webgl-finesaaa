@@ -92,8 +92,8 @@ function main() {
   var changeY = 0;
 
   function render() {
-    changeX  = changeX + 0.1;
-    changeY  = changeY + 0.3;
+    changeX  = changeX + 0.001;
+    changeY  = changeY + 0.003;
     gl.uniform2f(uChange, changeX, changeY);
     // Change screen to dark grey
     gl.clearColor(0.1, 0.1, 0.1, 1.0);
@@ -102,7 +102,7 @@ function main() {
     // Tell that we've three vertices
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
-  render();
+  setInterval(render, 1000/30);
 }
 
 window.onload = main;
