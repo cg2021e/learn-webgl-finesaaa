@@ -30,9 +30,10 @@ function main() {
     attribute vec2 aPosition;
     attribute vec3 aColor;
     varying vec3 vColor;
+    uniform vec2 uChange;
     void main() { 
       gl_PointSize = 10.0; 
-      gl_Position = vec4(aPosition, 0.0, 1.0); // Center of the coordnate
+      gl_Position = vec4(aPosition + uChange, 0.0, 1.0); // Center of the coordnate
         vColor = aColor;
     }
     `;
@@ -86,12 +87,22 @@ function main() {
   );
   gl.enableVertexAttribArray(aColor);
 
-  // Change screen to dark grey
-  gl.clearColor(0.1, 0.1, 0.1, 1.0);
-  gl.clear(gl.COLOR_BUFFER_BIT);
+  var uChange = gl.getUniformLocation(shaderProgram, "uChange");
+  var changeX = 0;
+  var changeY = 0;
 
-  // Tell that we've three vertices
-  gl.drawArrays(gl.TRIANGLES, 0, 6);
+  function render() {
+    changeX  = changeX + 0.1;
+    changeY  = changeY + 0.3;
+    gl.uniform2f(uChange, changeX, changeY);
+    // Change screen to dark grey
+    gl.clearColor(0.1, 0.1, 0.1, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+  
+    // Tell that we've three vertices
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+  }
+  render();
 }
 
 window.onload = main;
