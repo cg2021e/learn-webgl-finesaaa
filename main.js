@@ -7,13 +7,18 @@ function main() {
    * A (-0.5, -0.5)
    * B (0.5, -0.5)
    * C (0.0, 0.5)
+   * D (-0.5, 0.5)
    */
 
   var vertices = [
     -0.5, -0.5, 0.0, 1.0, 0.0,     // Point A
-     0.5, -0.5, 0.0, 0.0, 1.0,     // Point B
-     0.0,  0.5, 1.0, 0.0, 0.0      // Point C
-  ];
+    0.5, -0.5, 0.0, 0.0, 1.0,     // Point B
+    0.5,  0.5, 1.0, 0.0, 0.0,     // Point C
+    0.5,  0.5, 1.0, 0.0, 0.0,     // Point C
+    -0.5,  0.5, 1.0, 0.0, 0.0,     // Point D
+    -0.5, -0.5, 0.0, 1.0, 0.0      // Point A
+];
+
 
   // Create a lnekkd-list for storing the vertices data
   var buffer = gl.createBuffer();
@@ -26,8 +31,8 @@ function main() {
     attribute vec3 aColor;
     varying vec3 vColor;
     void main() { 
-        gl_Position = vec4(aPosition, 0.0, 1.0); // Center of the coordnate
-        gl_PointSize = 10.0; 
+      gl_PointSize = 10.0; 
+      gl_Position = vec4(aPosition, 0.0, 1.0); // Center of the coordnate
         vColor = aColor;
     }
     `;
@@ -67,18 +72,18 @@ function main() {
   //  the positional values from ARRAY_BUFFER
   //  to each vertex being processed
   var aPosition = gl.getAttribLocation(shaderProgram, "aPosition");
-  gl.vertexAttribPointer(
-    aPosition,
-    2,
-    gl.FLOAT,
-    false,
-    5 * Float32Array.BYTES_PER_ELEMENT, 
-    0
-  );
+  gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 0);
   gl.enableVertexAttribArray(aPosition);
 
   var aColor = gl.getAttribLocation(shaderProgram, "aColor");
-  gl.vertexAttribPointer(aColor, 3, gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 2 * Float32Array.BYTES_PER_ELEMENT);
+  gl.vertexAttribPointer(
+    aColor,
+    3,
+    gl.FLOAT,
+    false,
+    5 * Float32Array.BYTES_PER_ELEMENT,
+    2 * Float32Array.BYTES_PER_ELEMENT
+  );
   gl.enableVertexAttribArray(aColor);
 
   // Change screen to dark grey
@@ -86,7 +91,7 @@ function main() {
   gl.clear(gl.COLOR_BUFFER_BIT);
 
   // Tell that we've three vertices
-  gl.drawArrays(gl.POINTS, 0, 3);
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
 }
 
 window.onload = main;
